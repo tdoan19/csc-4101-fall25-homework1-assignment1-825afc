@@ -1,0 +1,120 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: test_public_fib
+      id: test_public_fib
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_fib
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_fib
+        timeout: 10
+        max-score: 1
+    - name: test_public_ispalindrome
+      id: test_public_ispalindrome
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_ispalindrome
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_ispalindrome
+        timeout: 10
+        max-score: 1
+    - name: test_public_nthmax
+      id: test_public_nthmax
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_nthmax
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_nthmax
+        timeout: 10
+        max-score: 1
+    - name: test_public_freq
+      id: test_public_freq
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_freq
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_freq
+        timeout: 10
+        max-score: 1
+    - name: test_public_ziphash
+      id: test_public_ziphash
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_ziphash
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_ziphash
+        timeout: 10
+        max-score: 1
+    - name: test_public_hashtoarray
+      id: test_public_hashtoarray
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_hashtoarray
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_hashtoarray
+        timeout: 10
+        max-score: 1
+    - name: test_public_phonebook_add
+      id: test_public_phonebook_add
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_phonebook_add
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_phonebook_add
+        timeout: 10
+        max-score: 1
+    - name: test_public_phonebook_lookup
+      id: test_public_phonebook_lookup
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_phonebook_lookup
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_phonebook_lookup
+        timeout: 10
+        max-score: 1
+    - name: test_public_phonebook_lookup_by_num
+      id: test_public_phonebook_lookup_by_num
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_phonebook_lookup_by_num
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_phonebook_lookup_by_num
+        timeout: 10
+        max-score: 1
+    - name: test_public_names_by_ac
+      id: test_public_names_by_ac
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_public_names_by_ac
+        setup-command: ''
+        command: ruby ./test/public/public.rb --name test_public_names_by_ac
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST_PUBLIC_FIB_RESULTS: "${{steps.test_public_fib.outputs.result}}"
+        TEST_PUBLIC_ISPALINDROME_RESULTS: "${{steps.test_public_ispalindrome.outputs.result}}"
+        TEST_PUBLIC_NTHMAX_RESULTS: "${{steps.test_public_nthmax.outputs.result}}"
+        TEST_PUBLIC_FREQ_RESULTS: "${{steps.test_public_freq.outputs.result}}"
+        TEST_PUBLIC_ZIPHASH_RESULTS: "${{steps.test_public_ziphash.outputs.result}}"
+        TEST_PUBLIC_HASHTOARRAY_RESULTS: "${{steps.test_public_hashtoarray.outputs.result}}"
+        TEST_PUBLIC_PHONEBOOK_ADD_RESULTS: "${{steps.test_public_phonebook_add.outputs.result}}"
+        TEST_PUBLIC_PHONEBOOK_LOOKUP_RESULTS: "${{steps.test_public_phonebook_lookup.outputs.result}}"
+        TEST_PUBLIC_PHONEBOOK_LOOKUP_BY_NUM_RESULTS: "${{steps.test_public_phonebook_lookup_by_num.outputs.result}}"
+        TEST_PUBLIC_NAMES_BY_AC_RESULTS: "${{steps.test_public_names_by_ac.outputs.result}}"
+      with:
+        runners: test_public_fib,test_public_ispalindrome,test_public_nthmax,test_public_freq,test_public_ziphash,test_public_hashtoarray,test_public_phonebook_add,test_public_phonebook_lookup,test_public_phonebook_lookup_by_num,test_public_names_by_ac
